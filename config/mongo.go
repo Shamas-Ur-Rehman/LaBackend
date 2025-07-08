@@ -14,7 +14,7 @@ var DB *mongo.Database
 func ConnectDB() {
 	// MongoDB connection URI
 	// uri := "mongodb+srv://shamasurrehman398:enEr1ytql29Q6N1d@cluster0.frjl1bw.mongodb.net/"
-	uri := "mongodb+srv://shamasurrehman398:enEr1ytql29Q6N1d@cluster0.frjl1bw.mongodb.net/?retryWrites=true&w=majority&tls=true"
+	uri := "mongodb+srv://shamasurrehman398:enEr1ytql29Q6N1d@cluster0.frjl1bw.mongodb.net/?retryWrites=true&w=majority&tls=false"
 
 	// Create a new Mongo client
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
