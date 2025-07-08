@@ -1,7 +1,6 @@
-# Dockerfile
-FROM golang:1.21
+FROM golang:1.23.1
 
-# Install TLS root certs for MongoDB Atlas
+# Install CA certs for MongoDB TLS
 RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
 
 WORKDIR /app
