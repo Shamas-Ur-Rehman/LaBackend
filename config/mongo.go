@@ -12,29 +12,21 @@ import (
 var DB *mongo.Database
 
 func ConnectDB() {
-	// MongoDB connection URI
-	// uri := "mongodb+srv://shamasurrehman398:enEr1ytql29Q6N1d@cluster0.frjl1bw.mongodb.net/"
-	uri := "mongodb+srv://shamasurrehman398:enEr1ytql29Q6N1d@cluster0.frjl1bw.mongodb.net/?retryWrites=true&w=majority&tls=false"
+	uri := "mongodb+srv://shamasurrehman398:enEr1ytql29Q6N1d@cluster0.frjl1bw.mongodb.net/?retryWrites=true&w=majority&tls=true"
 
-	// Create a new Mongo client
-	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
-	if err != nil {
-		log.Fatalf("Failed to create MongoDB client: %v", err)
-	}
-
-	// Create a context with timeout
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	// Connect to MongoDB
-	err = client.Connect(ctx)
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
 	if err != nil {
-		log.Fatalf("Failed to connect to MongoDB: %v", err)
+		log.Fatalf("❌ Failed to connect to MongoDB: %v", err)
 	}
 
-	// Assign database (change "productdb" to your DB name)
-	DB = client.Database("productdb")
+	if err := client.Ping(ctx, nil); err != nil {
+		log.Fatalf("❌ MongoDB ping failed: %v", err)
+	}
 
+	DB = client.Database("productdb")
 	log.Println("✅ MongoDB connected successfully.")
 }
 
