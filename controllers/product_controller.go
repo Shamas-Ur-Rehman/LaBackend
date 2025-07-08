@@ -62,7 +62,7 @@ func CreateProduct(c *gin.Context) {
 func GetAllProducts(c *gin.Context) {
 	products, err := services.GetProducts()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve products"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve products" + err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, products)
